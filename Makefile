@@ -20,3 +20,6 @@ format:
 
 .PHONY: test
 test: unit
+
+.PHONY: all-checks
+all-checks: lint typing unit
