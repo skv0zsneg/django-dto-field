@@ -6,7 +6,7 @@ authors = [{ name = "skv0zsneg", email = "<klimentlamonov@yandex.ru>" }]
 readme = "README.md"
 requires-python = ">=3.9"
 
-dependencies = ["django>=4.2.0"]
+dependencies = ["django>=4.2.0", "msgpack (>=1.1.1,<2.0.0)"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
