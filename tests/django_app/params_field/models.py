@@ -1,9 +1,7 @@
 from django.db import models
 
-from django_params_field import ParamsField
+from django_dict_field import DictField
 
 
 class ModelForTest(models.Model):
-    """Simple model using for test ParamsField."""
-
-    params_field_default = ParamsField()
+    default_dict_field = DictField()
