@@ -1,5 +1,3 @@
-from typing import Any
-
 from django.core.exceptions import ValidationError
 from django.db.models.fields import BinaryField
 
@@ -11,13 +9,12 @@ class DictField(BinaryField):
 
     def __init__(self, *args, **kwargs) -> None:
         self.serializer = Serializer()
+        kwargs.setdefault('editable', False)
         super().__init__(*args, **kwargs)
 
-    def deconstruct(self) -> tuple[Any, Any, Any, Any]:
-        name, path, args, kwargs = super().deconstruct()
-        return name, path, args, kwargs
-
-    def from_db_value(self, value: bytes, *args, **kwargs) -> dict:
+    def from_db_value(self, value: bytes | None, *args, **kwargs) -> dict | None:
+        if value is None:
+            return value
         return self.serializer.deserialize(value)
 
     def to_python(self, value: dict) -> dict:
@@ -25,10 +22,10 @@ class DictField(BinaryField):
             raise ValidationError(f"Given value '{value}' must be 'dict' instance!")
         return value
 
-    def get_db_prep_value(self, value: dict, *args, **kwargs) -> bytes:
-        if value is not None:
-            return self.serializer.serialize(value)
-        return value
+    def get_db_prep_value(self, value: dict | None, *args, **kwargs) -> bytes | None:
+        if value is None:
+            return value
+        return self.serializer.serialize(value)
 
     def value_to_string(self, obj):
         return str(self.value_from_object(obj))

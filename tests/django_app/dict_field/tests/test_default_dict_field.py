@@ -2,7 +2,7 @@ import pytest
 from django.core.exceptions import ValidationError
 from django.db.utils import IntegrityError
 
-from .models import ModelForTest
+from ..models import ModelForTest
 
 
 @pytest.mark.django_db

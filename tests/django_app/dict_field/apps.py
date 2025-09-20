@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ParamsFieldConfig(AppConfig):
+class DictFieldConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "params_field"
+    name = "dict_field"
