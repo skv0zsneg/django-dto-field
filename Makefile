@@ -4,6 +4,10 @@ SHELL:=/usr/bin/env bash
 unit:
 	poetry run pytest
 
+.PHONY: benchmark
+benchmark:
+	poetry run python3 benchmarks/jsonfield_benchmark.py
+
 .PHONY: typing
 typing:
 	poetry run mypy src
