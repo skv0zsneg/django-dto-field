@@ -22,13 +22,13 @@ typing:
 
 .PHONY: lint
 lint:
-	poetry run ruff check --select I
-	poetry run ruff format --check
+	poetry run ruff check --select I src
+	poetry run ruff format --check src
 
 .PHONY: format
 format:
-	poetry run ruff check --select I --fix
-	poetry run ruff format
+	poetry run ruff check --select I --fix src
+	poetry run ruff format src
 
 .PHONY: test
 test: unit
