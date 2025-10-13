@@ -9,7 +9,7 @@ class DictField(BinaryField):
 
     def __init__(self, *args, **kwargs) -> None:
         self.serializer = Serializer()
-        kwargs.setdefault('editable', False)
+        kwargs.setdefault("editable", False)
         super().__init__(*args, **kwargs)
 
     def from_db_value(self, value: bytes | None, *args, **kwargs) -> dict | None:
