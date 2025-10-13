@@ -1,5 +1,13 @@
 SHELL:=/usr/bin/env bash
 
+.PHONY: db-up
+db-up:
+	docker compose up -d
+
+.PHONY: db-down
+db-down:
+	docker compose down -v
+
 .PHONY: unit
 unit:
 	poetry run pytest
@@ -26,4 +34,4 @@ format:
 test: unit
 
 .PHONY: all-checks
-all-checks: lint typing unit
+all-checks: lint typing test
