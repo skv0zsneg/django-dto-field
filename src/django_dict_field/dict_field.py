@@ -1,3 +1,5 @@
+from typing import Optional
+
 from django.core.exceptions import ValidationError
 from django.db.models.fields import BinaryField
 
@@ -12,7 +14,7 @@ class DictField(BinaryField):
         kwargs.setdefault("editable", False)
         super().__init__(*args, **kwargs)
 
-    def from_db_value(self, value: bytes | None, *args, **kwargs) -> dict | None:
+    def from_db_value(self, value: Optional[bytes], *args, **kwargs) -> dict | None:
         if value is None:
             return value
         return self.serializer.deserialize(value)
@@ -22,7 +24,7 @@ class DictField(BinaryField):
             raise ValidationError(f"Given value '{value}' must be 'dict' instance!")
         return value
 
-    def get_db_prep_value(self, value: dict | None, *args, **kwargs) -> bytes | None:
+    def get_db_prep_value(self, value: Optional[dict], *args, **kwargs) -> bytes | None:
         if value is None:
             return value
         return self.serializer.serialize(value)
