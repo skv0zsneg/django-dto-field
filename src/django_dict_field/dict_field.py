@@ -14,7 +14,7 @@ class DictField(BinaryField):
         kwargs.setdefault("editable", False)
         super().__init__(*args, **kwargs)
 
-    def from_db_value(self, value: Optional[bytes], *args, **kwargs) -> dict | None:
+    def from_db_value(self, value: Optional[bytes], *args, **kwargs) -> Optional[dict]:
         if value is None:
             return value
         return self.serializer.deserialize(value)
@@ -24,7 +24,7 @@ class DictField(BinaryField):
             raise ValidationError(f"Given value '{value}' must be 'dict' instance!")
         return value
 
-    def get_db_prep_value(self, value: Optional[dict], *args, **kwargs) -> bytes | None:
+    def get_db_prep_value(self, value: Optional[dict], *args, **kwargs) -> Optional[bytes]:
         if value is None:
             return value
         return self.serializer.serialize(value)
