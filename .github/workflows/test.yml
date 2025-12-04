@@ -33,5 +33,9 @@ jobs:
           poetry config virtualenvs.in-project true
           poetry run pip install -U pip
           poetry install
+      - name: Pull up db
+        run: make db-up
       - name: Run tests
         run: make test
+      - name: Pull down db
+        run: make db-down
