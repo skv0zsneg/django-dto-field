@@ -2,13 +2,16 @@
 
 > ⚠️ This project under active developing.
 
-Django extension for efficient and easy storing `dict` data in django field.
+Django extension for storing dict data in relation database field with fast performance and flex schema.
 
 ## 📍 Purpose
 
-Sometimes we need to store some key value data in storages. In Django we can use `JSONField` with `json` tool to convert or `BinaryField` with some customs transformations. Often it also need to be efficient for work with big data or to have some validation and another features.
+Sometimes we need to store some key value data in storages. Often it also need to be efficient for work with big data or to have some validation and another features.
 
 `django-dict-field` here is to solve this problems like a charm ✨
+
+![DictField vs JSONField Benchmark](docs/media/bechmark.png)
+
 
 ## 🚀 Quick start
 
