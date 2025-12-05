@@ -12,6 +12,8 @@ Sometimes we need to store some key value data in storages. Often it also need t
 
 **DictField vs JSONField Benchmark**
 
+Operations on 100 000 size dict on PostgreSQL DB. Script [here](/benchmarks/jsonfield_benchmark.py).
+
 ![DictField vs JSONField Benchmark](docs/media/bechmark.png)
 
 
