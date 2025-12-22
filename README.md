@@ -63,6 +63,76 @@ car.configuration["capacity"] = 2.8
 del car.configuration["doors"]
 ```
 
+## ✅ Validate with Schemas
+
+For validation `DictField` values you can use schema feature.
+
+First, define schema:
+```python
+from django_dict_field import BaseSchema
+
+class Coords(BaseSchema):
+    latitude: float
+    longitude: float
+
+class City(BaseSchema):
+    name: str
+    coords: Coords | None = None
+    districts: list[str] = []
+```
+
+Second set it to `DictField`:
+```python
+class Country(Model):
+    capital = DictField(schema=City)
+```
+
+Finally use it:
+```python
+# creating throw schema
+my_capital = City(
+    coords=Coords(latitude=123.456, longitude=456.123),
+    name="Laplandia",
+    districts=["first", "second"],
+)
+
+# ... or throw raw dict
+my_capital = {
+    "coords": {"latitude": 123.456, "longitude": 456.123},
+    "name": "Laplandia",
+    "districts": ["first", "second"],
+}
+
+my_country = Country.objects.create(capital=my_capital)
+
+# use like schema vars or like raw dict
+assert my_country.capital.coords.longitude == my_country.capital["coords"]["longitude"]
+
+# validate values when changing
+try:
+    my_country.capital.coords = 42
+except InvalidSchemaAttribute:
+    # Handle invalid schema attribute cases
+    pass
+```
+
+### Unexpected data
+
+In perfect world when using schema you must be 100% sure that all DB's data is correspond to used schema. But field in storage can be changed directly bypass Django. Helpfully In this cases `DictFiled` will not raise exception on not valid data. Validation on reading from DB will work only if flag `strict_validation` flag is set to `True`.
+
+```python
+class Country(Model):
+    capital = DictField(schema=City, strict_validation=True)
+
+my_country = Country.objects.get(pk=123)
+try:
+    my_country.capital
+except InvalidSchema:
+    # Handle invalid schema cases
+    pass
+```
+
+
 ## 🤗 Author
 
 Made with love by [@skv0zsneg](https://github.com/skv0zsneg)
