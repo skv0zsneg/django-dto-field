@@ -40,7 +40,9 @@ class DictField(BinaryField):
             raise ValidationError(f"Given value '{value}' must be 'dict' instance!")
         return value
 
-    def get_db_prep_value(self, value: Optional[dict], *args, **kwargs) -> Optional[bytes]:
+    def get_db_prep_value(
+        self, value: Optional[dict], *args, **kwargs
+    ) -> Optional[bytes]:
         if value is None:
             return value
         return self._serializer.serialize(value)
