@@ -2,7 +2,7 @@ import msgspec
 
 
 class Serializer:
-    """Params serializer & deserializer."""
+    """Dict serializer & deserializer."""
 
     def serialize(self, value: dict) -> bytes:
         return msgspec.json.encode(value)
