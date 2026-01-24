@@ -1,6 +1,7 @@
 [project]
 name = "django-dict-field"
 version = "0.1.0-alpha1"
+license = "MIT" 
 description = "Django extension for efficient and easy storing dict data in django field."
 authors = [{ name = "skv0zsneg", email = "<klimentlamonov@yandex.ru>" }]
 readme = "README.md"
