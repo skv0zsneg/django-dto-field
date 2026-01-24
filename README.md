@@ -1,5 +1,11 @@
 # django-dict-field
 
+[![PyPI version](https://img.shields.io/pypi/v/django-dict-field.svg)](https://pypi.org/project/django-dict-field/)
+[![Python Version](https://img.shields.io/pypi/pyversions/django-dict-field.svg)](https://pypi.org/project/django-dict-field/)
+[![PyPI license](https://img.shields.io/pypi/l/django-dict-field.svg)](https://pypi.python.org/pypi/django-dict-field/)
+[![test](https://github.com/skv0zsneg/django-dict-field/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dict-field/actions/workflows/test.yml)
+[![typing & lint](https://github.com/skv0zsneg/django-dict-field/actions/workflows/typing_and_lint.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dict-field/actions/workflows/typing_and_lint.yml)
+
 > ⚠️ This project under active developing.
 
 Django extension for storing dict data in relation database field with fast performance and flex schema.
@@ -20,8 +26,6 @@ Operations on 100 000 size dict on PostgreSQL DB. Script [here](/benchmarks/json
 ## 🚀 Quick start
 
 1. Install `django-dict-field`.
-
-> ⚠️ Will not work until 0.1.0 version will be realized.
 
 ```
 pip install django-dict-field
