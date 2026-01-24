@@ -1,12 +1,12 @@
 [project]
-name = "django-params-field"
-version = "0.0.1"
-description = "Django extension for storing a lot of parameters in one field."
+name = "django-dict-field"
+version = "0.0.1-alpha"
+description = "Django extension for efficient and easy storing dict data in django field."
 authors = [{ name = "skv0zsneg", email = "<klimentlamonov@yandex.ru>" }]
 readme = "README.md"
 requires-python = ">=3.9"
 
-dependencies = ["django>=4.2.0"]
+dependencies = ["django>=4.2.0", "msgspec (>=0.20.0,<0.21.0)"]
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
@@ -16,6 +16,9 @@ pytest-cov = "^6.1.1"
 pytest-xdist = "^3.7.0"
 django-stubs = { extras = ["compatible-mypy"], version = "^5.2.0", markers = "python_version >= '3.10'" }
 ruff = "^0.11.12"
+pytest-benchmark = "^5.1.0"
+tabulate = "^0.9.0"
+psycopg2-binary = "^2.9.11"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "django_app.settings"

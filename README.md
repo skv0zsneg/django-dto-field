@@ -1,52 +1,68 @@
-# django-params-field
+# django-dict-field
 
-> ⚠️ This project under developing.
+[![PyPI version](https://badge.fury.io/py/django-dict-field.svg)](https://pypi.python.org/pypi/django-dict-field/)
+[![Python Version](https://img.shields.io/pypi/pyversions/django-dict-field.svg)](https://pypi.org/project/django-dict-field/)
+[![PyPI license](https://img.shields.io/pypi/l/django-dict-field.svg)](https://pypi.python.org/pypi/django-dict-field/)
+[![test](https://github.com/skv0zsneg/django-dict-field/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dict-field/actions/workflows/test.yml)
+[![typing & lint](https://github.com/skv0zsneg/django-dict-field/actions/workflows/typing_and_lint.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dict-field/actions/workflows/typing_and_lint.yml)
 
-Django extension for storing a lot of parameters in one model field.
+> ⚠️ This project under active developing.
+
+Django extension for storing dict data in relation database field with fast performance and flex schema.
 
 ## 📍 Purpose
 
-For example you have some business logic for storing information about cars and also all car configuration (like engine volume, compression ratio, fuel tank capacity, wheelbase and another N values). You don't need to work with all this data but need to store it.
+Sometimes we need to store some key value data in storages. Often it also need to be efficient for work with big data and have some validation and another features.
 
-`django-params-field` allows to put all this data in `ParamsField` and work with it like a charm ✨
+`django-dict-field` is a tool build around amazing [msgspec](https://github.com/jcrist/msgspec) serialization and validation library for solving this problems like a charm ✨
+
+**DictField vs JSONField Benchmark**
+
+Operations on 100 000 size dict on PostgreSQL DB. Script [here](/benchmarks/jsonfield_benchmark.py).
+
+![DictField vs JSONField Benchmark](docs/media/bechmark.png)
+
 
 ## 🚀 Quick start
 
-1. Install `django-params-field`.
-
-> ⚠️ Will not work until 0.1.0 version will be realized.
+1. Install `django-dict-field`.
 
 ```
-pip install django-params-field
+pip install django-dict-field
 ```
 
-2. Add `ParamField` to your model.
+2. Add `DictField` to your model.
 
 ```python
 from django.db.models import Model, CharField, DateTimeField
-from django_params_field import ParamsField
+from django_dict_field import DictField
 
 class Car(Model):
-    # main fields
-    make = CharField()
     model = CharField()
-    year = DateTimeField()
-    # params field
-    configuration = ParamsField()
+    creation_data = DateTimeField()
+    configuration = DictField()  # for storing a lot of configuration settings
 ```
 
 3. Work with it!
 
 ```python
-car = Car.objects.get(pk=1)
+# create
+car = Car.objects.create(
+    model="Toyota Camry",
+    creation_data=datetime(2021, 3, 15),
+    configuration={
+        "capacity": 2.5,
+        "drive": "FWD",
+        "consumption": 6.8,
+    }
+)
 
-# set
-car.configuration = {"engine_volume": 1.6}
-# get
-assert car.configuration == {"engine_volume": 1.6}
+# read
+assert car.configuration["drive"] == "FWD"
+
 # update
-car.configuration["engine_volume"] = 1.8
-car.configuration["doors"] = 3
+car.configuration["capacity"] = 2.8
+
 # delete
 del car.configuration["doors"]
 ```
