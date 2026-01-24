@@ -15,27 +15,35 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
     steps:
+
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+
       - name: Install poetry
-        run: |
-          curl -sSL 'https://install.python-poetry.org' | python
-          echo "$HOME/.poetry/bin" >> "$GITHUB_PATH"
+        uses: snok/install-poetry@v1
+        with:
+          version: 2.3.0
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
       - name: Install dependencies
         run: |
-          poetry config virtualenvs.in-project true
           poetry run pip install -U pip
           poetry install
+
       - name: Pull up db
         run: make db-up
+
       - name: Run tests
         run: make test
+
       - name: Pull down db
         run: make db-down
