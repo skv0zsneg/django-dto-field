@@ -67,27 +67,29 @@ del car.configuration["doors"]
 
 For validation `DictField` values you can use schema feature.
 
-First, define schema:
+Just define schema with dataclasses or TypedDict (in future versions more scheme description will be added - check issues if you want to help):
 ```python
-from django_dict_field import BaseSchema
+from dataclasses import dataclass
 
-class Coords(BaseSchema):
+@dataclass
+class Coords:
     latitude: float
     longitude: float
 
-class City(BaseSchema):
+@dataclass
+class City:
     name: str
     coords: Coords | None = None
     districts: list[str] = []
 ```
 
-Second set it to `DictField`:
+Then set it to `DictField` to `scheme` arg:
 ```python
 class Country(Model):
     capital = DictField(schema=City)
 ```
 
-Finally use it:
+And use it!
 ```python
 # creating throw schema
 my_capital = City(
@@ -118,11 +120,11 @@ except InvalidSchemaAttribute:
 
 ### Unexpected data
 
-In perfect world when using schema you must be 100% sure that all DB's data is correspond to used schema. But field in storage can be changed directly bypass Django. Helpfully In this cases `DictFiled` will not raise exception on not valid data. Validation on reading from DB will work only if flag `strict_validation` flag is set to `True`.
+In perfect world when using schema you must be 100% sure that all DB's data is correspond to used schema. But field in storage can be changed directly bypass Django. Helpfully In this cases `DictFiled` will not raise exception on not valid data. Validation on reading from DB will work only if flag `strict_schema_validation` flag is set to `True`.
 
 ```python
 class Country(Model):
-    capital = DictField(schema=City, strict_validation=True)
+    capital = DictField(schema=City, strict_schema_validation=True)
 
 my_country = Country.objects.get(pk=123)
 try:
