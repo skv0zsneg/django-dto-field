@@ -24,6 +24,7 @@ typing:
 lint:
 	poetry run ruff check --select I src
 	poetry run ruff format --check src
+	poetry run flake8 src --select=WPS
 
 .PHONY: format
 format:
