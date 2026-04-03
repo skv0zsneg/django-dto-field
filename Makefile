@@ -36,7 +36,7 @@ test: unit
 
 .PHONY: clean
 clean: 
-	rm -fr .mypy_cache .ruff_cache .pytest_cache .htmlcov .coverage
+	rm -fr .mypy_cache .ruff_cache .pytest_cache htmlcov .coverage
 
 .PHONY: all-checks
 all-checks: clean lint typing test
