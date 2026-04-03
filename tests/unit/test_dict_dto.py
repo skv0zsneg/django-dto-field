@@ -1,5 +1,6 @@
 import pytest
 
+from django_dto_field.exceptions import UnexpectedEmptySerializerHandler
 from django_dto_field.handler import DtoHandler
 
 
@@ -17,3 +18,9 @@ def test_good_dict_dto(dict_dto):
     restored_dto = dto_handler.deserialize(raw_dto)
 
     assert dict_dto == restored_dto
+
+
+def test_unexpected_empty_serializer_handler():
+    dto_handler = DtoHandler()
+    with pytest.raises(UnexpectedEmptySerializerHandler):
+        dto_handler.deserialize(b"some-thing")
