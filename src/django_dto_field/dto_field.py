@@ -10,6 +10,8 @@ T_DTO = TypeVar("T_DTO")
 class DtoField(BinaryField, Generic[T_DTO]):
     """DTO Field for efficient storing structures in DB."""
 
+    empty_strings_allowed = False
+
     def __init__(self, *args, **kwargs) -> None:
         self._dto_handler: DtoHandler = DtoHandler()
         super().__init__(*args, **kwargs)
