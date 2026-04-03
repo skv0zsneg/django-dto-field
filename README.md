@@ -15,7 +15,7 @@ Storing DTO data in Django model field with fast [de]serialization.
 - [X] All DB support (if DB support BinaryFiled)
 - [ ] Zip field for size saving (optional)
 - [X] Supports pure `dict` as DTO
-- [X] Supports `TypedDict` as DTO
+- [ ] Supports `TypedDict` as DTO
 - [ ] Supports `dataclass` as DTO
 - [ ] Supports `pydantic` as DTO
 - [ ] Supports `marshmallow` as DTO
