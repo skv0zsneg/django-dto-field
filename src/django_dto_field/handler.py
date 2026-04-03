@@ -23,9 +23,6 @@ class DtoHandler(Generic[T_DTO]):
         return self._serializer.deserialize(raw_dto)
 
     def _get_serializer(self, value_dto: T_DTO) -> BaseDtoSerializer:
-        if self._serializer is not None:
-            return self._serializer
-
         if isinstance(value_dto, dict):
             self._serializer = DictDtoSerializer()
         else:
