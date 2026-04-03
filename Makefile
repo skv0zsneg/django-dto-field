@@ -34,5 +34,9 @@ format:
 .PHONY: test
 test: unit
 
+.PHONY: clean
+clean: 
+	rm -fr .mypy_cache .ruff_cache .pytest_cache .htmlcov .coverage
+
 .PHONY: all-checks
-all-checks: lint typing test
+all-checks: clean lint typing test
