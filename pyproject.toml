@@ -1,8 +1,8 @@
 [project]
-name = "django-dict-field"
-version = "0.1.0-alpha1"
+name = "django-dto-field"
+version = "0.1.0-alpha2"
 license = "MIT" 
-description = "Django extension for efficient and easy storing dict data in django field."
+description = "Storing DTO data in Django model field with fast [de]serialization."
 authors = [{ name = "skv0zsneg", email = "<klimentlamonov@yandex.ru>" }]
 readme = "README.md"
 requires-python = ">=3.10,<4.0"
