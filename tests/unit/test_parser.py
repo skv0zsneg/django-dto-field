@@ -16,18 +16,17 @@ class TestToRaw:
     @pytest.mark.parametrize(
         "payload",
         [
-            b"",  # Пустой payload
-            b"hello world",  # ASCII данные
-            b"\x00\xff\x7f",  # Специальные байты
-            bytes(range(256)),  # Все возможные значения байтов
-            b"x" * 10_000,  # Большой payload
+            b"",
+            b"hello world",
+            b"\x00\xff\x7f",
+            bytes(range(256)),
+            b"x" * 10_000,
         ],
     )
     def test_to_raw_valid_roundtrip(self, parser: RawDtoParser, payload: bytes) -> None:
         code = b"\x01"
         raw = parser.to_raw(code, payload)
 
-        # Проверка структуры TLV
         assert raw[:1] == code
         expected_length = struct.pack("!I", len(payload))
         assert raw[1:5] == expected_length
@@ -47,7 +46,7 @@ class TestFromRaw:
 
     def test_from_raw_header_too_short(self, parser: RawDtoParser) -> None:
         with pytest.raises(CorruptedDtoError, match="Header DTO to short"):
-            parser.from_raw(b"\x01\x00\x00\x00")  # 4 байта < 5
+            parser.from_raw(b"\x01\x00\x00\x00")
 
     @patch("struct.unpack")
     def test_from_raw_unpack_raises(self, mock_unpack: patch, parser: RawDtoParser) -> None:
@@ -58,7 +57,6 @@ class TestFromRaw:
             parser.from_raw(raw)
 
     def test_from_raw_truncated_payload(self, parser: RawDtoParser) -> None:
-        # Заголовок утверждает, что длина 100, но данных меньше
         raw = b"\x03" + struct.pack("!I", 100) + b"short_payload"
         with pytest.raises(CorruptedDtoError, match="payload truncated"):
             parser.from_raw(raw)
