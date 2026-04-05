@@ -24,7 +24,8 @@ class Registry:
             return self._serializers[code]
         except KeyError:
             raise RegistryError(
-                "Registry Serializer Error: no serializer associated to '%r' code." % code
+                "Registry Serializer Error: no serializer associated to '%r' code."
+                % code
             )
 
 
