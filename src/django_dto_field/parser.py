@@ -17,11 +17,6 @@ class RawDtoParser:
             )
 
         length_payload = struct.pack(self._length_format, len(payload))
-        if len(length_payload) != 4:
-            raise CorruptedDtoError(
-                "Corrupted: length payload unexpected not 4 byte size."
-            )
-
         return serializer_code + length_payload + payload
 
     def from_raw(self, raw_dto: bytes) -> bytes:
