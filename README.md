@@ -31,7 +31,7 @@ $ pip install django-dto-field
 
 ## 🚀 Quick start
 
-Set dto field to your model
+Set DTO field to your model:
 
 ```python
 >>> from django.db.models import CharField
@@ -42,20 +42,15 @@ Set dto field to your model
 ...    city = DtoField()
 ```
 
-And than use it as usual
+And than use it:
 
 ```python
->>> from dataclasses import dataclass
+>>> city = {"name": "Capitol", "districts": [f"d{i}" for i in range(1, 14)]}
+>>> created_country = Country.objects.create(name="Panem", city=city)
 
->>> @dataclass  # <- Change to your favorite DTO
-... class City:
-...    name: str 
-...    districts: list[str]
-
->>> city = City(name="Capitol", districts=[f"d{i}" for i in range(1, 14)])
->>> country = Country.objects.create(name="Panem", city=city)
-
->>> assert isinstance(country.city, City)
+>>> from_db_country = Country.objects.get(pk=created_country.pk)
+>>> assert isinstance(from_db_country.city, dict)
+>>> assert from_db_country.city == city
 ```
 
 
