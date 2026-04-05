@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - More unit tests during architecture changing.
+- Binary DTO's bow storing with TLV (Type-Length-Value).
 
 ## 0.1.0-alpha1
 
