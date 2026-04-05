@@ -22,6 +22,14 @@ class BaseDtoSerializer(Generic[T_DTO], ABC):
         )
         self._parser = RawDtoParser()
 
+    @abstractmethod
+    def serialize_payload(self, value_dto: T_DTO) -> bytes:
+        """Must implement payload serialize in child serializers."""
+
+    @abstractmethod
+    def deserialize_payload(self, raw_dto: bytes) -> T_DTO:
+        """Must implement payload deserialize in child serializers."""
+
     def serialize(self, value_dto: T_DTO) -> bytes:
         payload = self.serialize_payload(value_dto)
         return self._parser.to_raw(self._get_serializer_code(), payload)
@@ -44,14 +52,6 @@ class BaseDtoSerializer(Generic[T_DTO], ABC):
         if self.serializer_code is None:
             raise SerializerError("Serialize Code Error: must be defined.")
         return self.serializer_code
-
-    @abstractmethod
-    def serialize_payload(self, value_dto: T_DTO) -> bytes:
-        """Must implement payload serialize in child serializers."""
-
-    @abstractmethod
-    def deserialize_payload(self, raw_dto: bytes) -> T_DTO:
-        """Must implement payload deserialize in child serializers."""
 
 
 class DictDtoSerializer(BaseDtoSerializer):
