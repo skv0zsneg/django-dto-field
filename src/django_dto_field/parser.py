@@ -12,11 +12,15 @@ class RawDtoParser:
 
     def to_raw(self, serializer_code: bytes, payload: bytes) -> bytes:
         if len(serializer_code) != 1:
-            raise CorruptedDtoError("Corrupted: serializer code unexpected not 1 byte size.")
+            raise CorruptedDtoError(
+                "Corrupted: serializer code unexpected not 1 byte size."
+            )
 
         length_payload = struct.pack(self._length_format, len(payload))
         if len(length_payload) != 4:
-            raise CorruptedDtoError("Corrupted: length payload unexpected not 4 byte size.")
+            raise CorruptedDtoError(
+                "Corrupted: length payload unexpected not 4 byte size."
+            )
 
         return serializer_code + length_payload + payload
 
@@ -30,7 +34,9 @@ class RawDtoParser:
                 raw_dto[1 : self._header_size],
             )[0]
         except Exception as e:
-            raise CorruptedDtoError("Corrupted: cannot unpack payload length number.") from e
+            raise CorruptedDtoError(
+                "Corrupted: cannot unpack payload length number."
+            ) from e
 
         payload = raw_dto[self._header_size : self._header_size + payload_length]
         if len(payload) != payload_length:

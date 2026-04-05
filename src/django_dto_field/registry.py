@@ -12,7 +12,11 @@ class Registry:
     def __init__(self) -> None:
         self._serializers: dict[bytes, type["BaseDtoSerializer"]] = {}
 
-    def save_serializer(self, code: bytes, serializer: type["BaseDtoSerializer"]) -> None:
+    def save_serializer(
+        self,
+        code: bytes,
+        serializer: type["BaseDtoSerializer"],
+    ) -> None:
         self._serializers[code] = serializer
 
     def get_serializer(self, code: bytes) -> type["BaseDtoSerializer"]:
