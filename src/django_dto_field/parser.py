@@ -47,5 +47,5 @@ class RawDtoParser:
     @classmethod
     def get_serializer_code(cls, raw_dto: bytes) -> bytes:
         if len(raw_dto) < cls._header_size:
-            raise CorruptedDtoError("Corrupted: Header DTO to short.")
+            raise CorruptedDtoError("Corrupted: Header DTO too short.")
         return raw_dto[:1]
