@@ -22,10 +22,10 @@ class Registry:
     def get_serializer(self, code: bytes) -> type["BaseDtoSerializer"]:
         try:
             return self._serializers[code]
-        except KeyError as e:
+        except KeyError:
             raise RegistryError(
-                "Registry Serializer Error: no serializer associated to %s code." % code
-            ) from e
+                "Registry Serializer Error: no serializer associated to '%r' code." % code
+            )
 
 
 # TODO: Globals is bad. Need to do something with it.

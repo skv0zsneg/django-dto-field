@@ -42,7 +42,7 @@ class BaseDtoSerializer(Generic[T_DTO], ABC):
         from_raw_serializer_code = self._parser.get_serializer_code(raw_dto)
         if from_raw_serializer_code != current_serializer_code:
             raise SerializerError(
-                "Serialize Code Error: expected %s got %s"
+                "Serialize Code Error: expected '%r' got '%r'"
                 % (current_serializer_code, from_raw_serializer_code)
             )
 
