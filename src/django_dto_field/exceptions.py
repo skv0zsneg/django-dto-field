@@ -12,3 +12,7 @@ class SerializerError(BaseDjangoDtoFieldException):
 
 class CorruptedDtoError(BaseDjangoDtoFieldException):
     """Corrupted error form DTO raw object."""
+
+
+class RegistryError(BaseDjangoDtoFieldException):
+    """Error in global registry."""

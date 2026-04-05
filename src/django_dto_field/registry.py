@@ -1,5 +1,7 @@
 from typing import TYPE_CHECKING
 
+from django_dto_field.exceptions import RegistryError
+
 if TYPE_CHECKING:
     from django_dto_field.serializer import BaseDtoSerializer
 
@@ -14,7 +16,12 @@ class Registry:
         self._serializers[code] = serializer
 
     def get_serializer(self, code: bytes) -> type["BaseDtoSerializer"]:
-        return self._serializers[code]
+        try:
+            return self._serializers[code]
+        except KeyError as e:
+            raise RegistryError(
+                "Registry Serializer Error: no serializer associated to %s code." % code
+            ) from e
 
 
 # TODO: Globals is bad. Need to do something with it.
