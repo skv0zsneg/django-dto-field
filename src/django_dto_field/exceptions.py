@@ -2,9 +2,17 @@ class BaseDjangoDtoFieldException(Exception):
     """Base exception for django-dto-field."""
 
 
-class UnexpectedEmptySerializerHandler(BaseDjangoDtoFieldException):
-    """When deserialize is called but serializer handler still unknown."""
-
-
 class UnknownDtoType(BaseDjangoDtoFieldException):
     """When dto type is unknown."""
+
+
+class NoSerializerCode(BaseDjangoDtoFieldException):
+    """When serializer has no serializer code."""
+
+
+class WrongSerializerForGivenType(BaseDjangoDtoFieldException):
+    """When serializer code from raw dto is different from using serializer."""
+
+
+class CorruptedDtoError(BaseDjangoDtoFieldException):
+    """When raw DTO binary is not valid or broken."""
