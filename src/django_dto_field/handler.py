@@ -26,7 +26,4 @@ class DtoHandler(Generic[T_DTO]):
 
     def _get_serializer_from_raw(self, raw_dto: bytes) -> BaseDtoSerializer:
         code = RawDtoParser.get_serializer_code(raw_dto)
-        try:
-            return registry.get_serializer(code)()
-        except KeyError:
-            raise UnknownDtoType()
+        return registry.get_serializer(code)()
