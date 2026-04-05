@@ -33,10 +33,10 @@ class RawDtoParser:
                 self._length_format,
                 raw_dto[1 : self._header_size],
             )[0]
-        except Exception as e:
+        except Exception as error_on_unpacking:
             raise CorruptedDtoError(
                 "Corrupted: cannot unpack payload length number."
-            ) from e
+            ) from error_on_unpacking
 
         payload = raw_dto[self._header_size : self._header_size + payload_length]
         if len(payload) != payload_length:
@@ -48,4 +48,4 @@ class RawDtoParser:
     def get_serializer_code(cls, raw_dto: bytes) -> bytes:
         if len(raw_dto) < cls._header_size:
             raise CorruptedDtoError("Corrupted: Header DTO to short.")
-        return raw_dto[0:1]
+        return raw_dto[0:1]  # noqa: WPS349
