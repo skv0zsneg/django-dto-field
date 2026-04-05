@@ -1,13 +1,5 @@
 SHELL:=/usr/bin/env bash
 
-.PHONY: db-up
-db-up:
-	docker compose up -d
-
-.PHONY: db-down
-db-down:
-	docker compose down -v
-
 .PHONY: unit
 unit:
 	poetry run pytest
@@ -24,6 +16,7 @@ typing:
 lint:
 	poetry run ruff check --select I src
 	poetry run ruff format --check src
+	poetry run flake8 src --select=WPS
 
 .PHONY: format
 format:
@@ -33,5 +26,9 @@ format:
 .PHONY: test
 test: unit
 
+.PHONY: clean
+clean: 
+	rm -fr .mypy_cache .ruff_cache .pytest_cache htmlcov .coverage
+
 .PHONY: all-checks
-all-checks: lint typing test
+all-checks: clean lint typing test

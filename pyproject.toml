@@ -1,11 +1,11 @@
 [project]
-name = "django-dict-field"
-version = "0.1.0-alpha1"
+name = "django-dto-field"
+version = "0.1.0-alpha2"
 license = "MIT" 
-description = "Django extension for efficient and easy storing dict data in django field."
+description = "Storing DTO data in easy-to-use and production-ready Django Model Field with fast [de]serialization."
 authors = [{ name = "skv0zsneg", email = "<klimentlamonov@yandex.ru>" }]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<4.0"
 
 dependencies = ["django>=4.2.0", "msgspec (>=0.20.0,<0.21.0)"]
 
@@ -20,6 +20,7 @@ ruff = "^0.11.12"
 pytest-benchmark = "^5.1.0"
 tabulate = "^0.9.0"
 psycopg2-binary = "^2.9.11"
+wemake-python-styleguide = "^1.6.1"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "django_app.settings"

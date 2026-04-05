@@ -46,12 +46,8 @@ WSGI_APPLICATION = "django_app.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "dbfortests",
-        "USER": "postgres",
-        "PASSWORD": "postgrespassword",  # from docker-compose.yml
-        "HOST": "localhost",
-        "PORT": "8888",  # from docker-compose.yml
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": ":memory:",
     }
 }
 
