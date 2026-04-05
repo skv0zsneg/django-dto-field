@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 
 from django_dto_field.exceptions import RegistryError
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from django_dto_field.serializer import BaseDtoSerializer
 
 
