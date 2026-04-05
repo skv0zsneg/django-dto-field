@@ -1,12 +1,12 @@
 # django-dto-field
 
-[![PyPI version](https://img.shields.io/pypi/v/django-dict-field.svg)](https://pypi.org/project/django-dict-field/)
-[![PyPI license](https://img.shields.io/pypi/l/django-dict-field.svg)](https://pypi.python.org/pypi/django-dict-field/)
-[![Python Version](https://img.shields.io/pypi/pyversions/django-dict-field.svg)](https://pypi.org/project/django-dict-field/)
+[![PyPI version](https://img.shields.io/pypi/v/django-dto-field.svg)](https://pypi.org/project/django-dto-field/)
+[![PyPI license](https://img.shields.io/pypi/l/django-dto-field.svg)](https://pypi.python.org/pypi/django-dto-field/)
+[![Python Version](https://img.shields.io/pypi/pyversions/django-dto-field.svg)](https://pypi.org/project/django-dto-field/)
 
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
-[![test](https://github.com/skv0zsneg/django-dict-field/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dict-field/actions/workflows/test.yml)
-[![typing & lint](https://github.com/skv0zsneg/django-dict-field/actions/workflows/typing_and_lint.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dict-field/actions/workflows/typing_and_lint.yml)
+[![test](https://github.com/skv0zsneg/django-dto-field/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dto-field/actions/workflows/test.yml)
+[![typing & lint](https://github.com/skv0zsneg/django-dto-field/actions/workflows/typing_and_lint.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dto-field/actions/workflows/typing_and_lint.yml)
 
 _Storing DTO data in easy-to-use and production-ready Django Model Field with fast [de]serialization._
 
