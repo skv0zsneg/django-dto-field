@@ -6,13 +6,9 @@ class UnknownDtoType(BaseDjangoDtoFieldException):
     """When dto type is unknown."""
 
 
-class NoSerializerCode(BaseDjangoDtoFieldException):
-    """When serializer has no serializer code."""
-
-
-class WrongSerializerForGivenType(BaseDjangoDtoFieldException):
-    """When serializer code from raw dto is different from using serializer."""
+class SerializerError(BaseDjangoDtoFieldException):
+    """Serializer DTO error."""
 
 
 class CorruptedDtoError(BaseDjangoDtoFieldException):
-    """When raw DTO binary is not valid or broken."""
+    """Corrupted error form DTO raw object."""
