@@ -1,9 +1,10 @@
 from django.db import models
 from django.db.models.fields.json import JSONField
 
-from django_dict_field import DictField
+from django_dto_field.dto_field import DtoField
 
 
 class ModelForTest(models.Model):
     default_json_field = JSONField(null=True)
-    default_dict_field = DictField()
+    dict_dto_field = DtoField()
+    none_dto_field = DtoField(null=True)
