@@ -8,7 +8,10 @@
 [![test](https://github.com/skv0zsneg/django-dict-field/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dict-field/actions/workflows/test.yml)
 [![typing & lint](https://github.com/skv0zsneg/django-dict-field/actions/workflows/typing_and_lint.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dict-field/actions/workflows/typing_and_lint.yml)
 
-Storing DTO data in Django model field with fast [de]serialization.
+_Storing DTO data in easy-to-use and production-ready Django Model Field with fast [de]serialization._
+
+A custom Django Model Field that can serialize and deserialize for different types of DTO (Data-Transfer-Object). `DtoField` detect DTO type and serialize the most efficiently. Also it has own binary container to maintain data integrity and economical storage. 
+
 
 ## ✨ Features
 

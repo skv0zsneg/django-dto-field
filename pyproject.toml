@@ -2,7 +2,7 @@
 name = "django-dto-field"
 version = "0.1.0-alpha2"
 license = "MIT" 
-description = "Storing DTO data in Django model field with fast [de]serialization."
+description = "Storing DTO data in easy-to-use and production-ready Django Model Field with fast [de]serialization."
 authors = [{ name = "skv0zsneg", email = "<klimentlamonov@yandex.ru>" }]
 readme = "README.md"
 requires-python = ">=3.10,<4.0"
