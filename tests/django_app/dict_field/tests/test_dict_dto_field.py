@@ -1,6 +1,6 @@
 import pytest
 
-from django_dto_field.exceptions import UnknownDtoType
+from django_dto_field.exceptions import DtoHandlerError
 
 from ..models import ModelForTest
 
@@ -40,7 +40,7 @@ def test_dict_dto_good_values(value):
     ],
 )
 def test_dict_dto_bad_values(invalid_value):
-    with pytest.raises(UnknownDtoType):
+    with pytest.raises(DtoHandlerError):
         ModelForTest.objects.create(dict_dto_field=invalid_value)
 
 

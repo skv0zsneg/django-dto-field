@@ -1,6 +1,6 @@
 import pytest
 
-from django_dto_field.exceptions import RegistryError
+from django_dto_field.exceptions import DtoHandlerError
 from django_dto_field.handler import DtoHandler
 
 
@@ -22,5 +22,5 @@ def test_good_dict_dto(dict_dto):
 
 def test_unexpected_empty_serializer_handler():
     dto_handler = DtoHandler()
-    with pytest.raises(RegistryError):
+    with pytest.raises(DtoHandlerError):
         dto_handler.deserialize(b"some-thing")

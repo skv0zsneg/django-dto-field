@@ -1,16 +1,9 @@
 import struct
-from unittest.mock import patch
 
 import pytest
 
-from django_dto_field.exceptions import CorruptedDtoError, SerializerError
-from django_dto_field.serializer import BaseDtoSerializer, DictDtoSerializer
-
-
-@pytest.fixture(autouse=True)
-def isolate_registry():
-    with patch("django_dto_field.serializer.registry") as mock_reg:
-        yield mock_reg
+from django_dto_field.exceptions import CorruptedDtoError, DtoFeatureError, SerializerError
+from django_dto_field.features.serializers import BaseDtoSerializer, DictDtoSerializer
 
 
 @pytest.fixture
@@ -38,14 +31,10 @@ class TestDictDtoSerializer:
         restored = serializer.deserialize(raw)
         assert restored == value
 
-    def test_serialize_registers_code_once(self, isolate_registry) -> None:
-        DictDtoSerializer()
-        isolate_registry.save_serializer.assert_called_once_with(b"\x01", DictDtoSerializer)
-
     def test_deserialize_handles_none(self, serializer: DictDtoSerializer) -> None:
         assert serializer.deserialize(None) is None
 
-    def test_deserialize_wrong_serializer_code_raises(self, serializer: DictDtoSerializer) -> None:
+    def test_deserialize_wrong_dto_code_raises(self, serializer: DictDtoSerializer) -> None:
         payload = b'{"test": 1}'
         raw_wrong_code = b"\x02" + struct.pack("!I", len(payload)) + payload
 
@@ -65,9 +54,9 @@ class TestBaseDtoSerializerConstraints:
         with pytest.raises(TypeError, match="Can't instantiate abstract class"):
             BaseDtoSerializer()
 
-    def test_missing_serializer_code_raises_on_init(self, isolate_registry) -> None:
+    def test_missing_dto_code_raises_on_init(self) -> None:
         class BrokenSerializer(BaseDtoSerializer):
-            serializer_code = None
+            dto_code = None
 
             def serialize_payload(self, v):  # pragma: no cover
                 return b""
@@ -75,12 +64,15 @@ class TestBaseDtoSerializerConstraints:
             def deserialize_payload(self, v):  # pragma: no cover
                 return {}
 
-        with pytest.raises(SerializerError, match="must be defined"):
+        with pytest.raises(
+            DtoFeatureError,
+            match="Dto Feature Error: missing definition of `dto_code`.",
+        ):
             BrokenSerializer()
 
-    def test_serialize_payload_not_implemented(self, isolate_registry) -> None:
+    def test_serialize_payload_not_implemented(self) -> None:
         class IncompleteSerializer(BaseDtoSerializer):
-            serializer_code = b"\x99"
+            dto_code = b"\x99"
             pass
 
         with pytest.raises(TypeError, match="Can't instantiate abstract class"):
