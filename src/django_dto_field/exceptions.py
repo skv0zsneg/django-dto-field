@@ -2,8 +2,8 @@ class BaseDjangoDtoFieldException(Exception):
     """Base exception for django-dto-field."""
 
 
-class UnknownDtoType(BaseDjangoDtoFieldException):
-    """When dto type is unknown."""
+class DtoHandlerError(BaseDjangoDtoFieldException):
+    """Error in DTO handler."""
 
 
 class SerializerError(BaseDjangoDtoFieldException):
@@ -16,3 +16,7 @@ class CorruptedDtoError(BaseDjangoDtoFieldException):
 
 class RegistryError(BaseDjangoDtoFieldException):
     """Error in global registry."""
+
+
+class DtoFeatureError(BaseDjangoDtoFieldException):
+    """Error with DTO feature."""
