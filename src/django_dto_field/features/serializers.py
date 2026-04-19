@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import TypeVar
+from typing import Generic, TypeVar
 
 import msgspec
 
@@ -10,7 +10,7 @@ from django_dto_field.parser import RawDtoParser
 T_DTO = TypeVar("T_DTO")
 
 
-class BaseDtoSerializer[T_DTO](BaseDtoFeature, ABC):
+class BaseDtoSerializer(BaseDtoFeature, Generic[T_DTO], ABC):
     """Interface for DTO serializer adapters."""
 
     def __init__(self) -> None:

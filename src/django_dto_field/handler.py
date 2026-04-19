@@ -1,4 +1,4 @@
-from typing import TypeVar
+from typing import Generic, TypeVar
 
 from django_dto_field.exceptions import DtoHandlerError
 from django_dto_field.features.base import DtoCodeEnum
@@ -8,7 +8,7 @@ from django_dto_field.parser import RawDtoParser
 T_DTO = TypeVar("T_DTO")
 
 
-class DtoHandler[T_DTO]:
+class DtoHandler(Generic[T_DTO]):
     """Handler for DTO objects."""
 
     def serialize(self, value_dto: T_DTO) -> bytes:
