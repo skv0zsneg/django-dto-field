@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## WIP
 
+### Changed
+
+- Move `dto_code` checking to `BaseDtoFeature` class.
+
 ### Removed
 
 - Registry class because of it over-engineering propose.   

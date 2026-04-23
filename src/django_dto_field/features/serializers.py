@@ -14,7 +14,6 @@ class BaseDtoSerializer(BaseDtoFeature, Generic[T_DTO], ABC):
     """Interface for DTO serializer adapters."""
 
     def __init__(self) -> None:
-        self._get_dto_code()  # <-- calling just to be sure that dto_code is set.
         self._parser = RawDtoParser()
 
     @abstractmethod

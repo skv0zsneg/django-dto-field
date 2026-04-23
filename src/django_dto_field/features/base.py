@@ -1,6 +1,6 @@
 from abc import ABC
 from enum import Enum
-from typing import ClassVar
+from typing import ClassVar, Self
 
 from django_dto_field.exceptions import DtoFeatureError
 
@@ -16,9 +16,14 @@ class BaseDtoFeature(ABC):
 
     dto_code: ClassVar[bytes | None] = None
 
-    def _get_dto_code(self) -> bytes:
-        if self.dto_code is None:
+    def __new__(cls) -> Self:
+        cls._get_dto_code()  # <-- calling just to be sure that dto_code is set.
+        return super().__new__(cls)
+
+    @classmethod
+    def _get_dto_code(cls) -> bytes:
+        if cls.dto_code is None:
             raise DtoFeatureError(
                 "Dto Feature Error: missing definition of `dto_code`."
             )
-        return self.dto_code
+        return cls.dto_code
