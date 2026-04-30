@@ -18,7 +18,6 @@ A custom Django Model Field that can serialize and deserialize for different typ
 - [X] All DB support (if DB support BinaryFiled)
 - [ ] Zip field for size saving (optional)
 - [X] Supports pure `dict` as DTO
-- [ ] Supports `TypedDict` as DTO
 - [ ] Supports `dataclass` as DTO
 - [ ] Supports `pydantic` as DTO
 - [ ] Supports `marshmallow` as DTO
