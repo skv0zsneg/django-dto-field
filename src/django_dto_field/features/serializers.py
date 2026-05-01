@@ -66,10 +66,10 @@ class DataclassDtoSerializer(BaseDtoSerializer):
 
     dto_code = DtoCodeEnum.DATACLASS
 
-    def serialize_payload(self, value_dto: DataclassInstance) -> bytes:
+    def serialize_payload(self, value_dto: "DataclassInstance") -> bytes:
         return msgspec.json.encode(asdict(value_dto))
 
-    def deserialize_payload(self, raw_dto: bytes) -> DataclassInstance:
+    def deserialize_payload(self, raw_dto: bytes) -> "DataclassInstance":
         if self._schema is None:
             raise SerializerError(
                 "Serializer Error: for `dataclass` DTO schema must be provided"

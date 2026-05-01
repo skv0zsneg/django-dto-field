@@ -25,7 +25,7 @@ class DataclassValidator(BaseDtoValidator):
     dto_code = DtoCodeEnum.DATACLASS
 
     def validate(
-        self, value_dto: DataclassInstance, schema: type[DataclassInstance]
+        self, value_dto: "DataclassInstance", schema: type["DataclassInstance"]
     ) -> None:
         if not isinstance(value_dto, schema):
             raise ValidatorError(
