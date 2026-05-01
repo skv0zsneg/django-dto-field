@@ -9,6 +9,7 @@ class DtoCodeEnum(bytes, Enum):
     """Enum for builtin DTO codes."""
 
     DICT = b"\x01"
+    DATACLASS = b"\x02"
 
 
 class BaseDtoFeature(ABC):
