@@ -13,7 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Registry class because of it over-engineering propose.   
+- Registry class because of it over-engineering propose.
+- `TypedDict` support because of int not DTO nature, #28
 
 ## [0.1.0-alpha2] - 2026-04-05
 
