@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## WIP
 
+### Changed
+
+- Breaking: change `DtoField` naming to `DTOField` to be similar to `JSONField` naming.
+
 ### Removed
 
 - Registry class because of it over-engineering propose.
