@@ -9,7 +9,7 @@ from django_dto_field.handler import DtoHandler
 T_DTO = TypeVar("T_DTO")
 
 
-class DtoField(BinaryField, Generic[T_DTO]):
+class DTOField(BinaryField, Generic[T_DTO]):
     """DTO Field for efficient storing structures in DB."""
 
     empty_strings_allowed = False

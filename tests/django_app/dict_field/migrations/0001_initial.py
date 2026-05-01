@@ -24,8 +24,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("default_json_field", models.JSONField(null=True)),
-                ("dict_dto_field", django_dto_field.dto_field.DtoField()),
-                ("none_dto_field", django_dto_field.dto_field.DtoField(null=True)),
+                ("dict_dto_field", django_dto_field.dto_field.DTOField()),
+                ("none_dto_field", django_dto_field.dto_field.DTOField(null=True)),
             ],
         ),
     ]
