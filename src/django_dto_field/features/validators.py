@@ -23,5 +23,6 @@ class DataclassValidator(BaseDtoValidator):
     def validate(self, value_dto: T_DTO, schema: type[T_DTO]) -> None:
         if not isinstance(value_dto, schema):
             raise ValidatorError(
-                "Validation Error: given dataclass DTO is not match given schema %s" % schema
+                "Validation Error: given dataclass DTO is not match given schema %s"
+                % schema
             )

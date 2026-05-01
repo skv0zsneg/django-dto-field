@@ -39,7 +39,8 @@ class DtoField(BinaryField, Generic[T_DTO]):
         if self._schema:
             if not self._dto_handler.is_valid(value, self._schema):
                 raise ValidationError(
-                    "given value '%s' is not valid for schema '%s'" % (value, self._schema)
+                    "given value '%s' is not valid for schema '%s'"
+                    % (value, self._schema)
                 )
         return value
 

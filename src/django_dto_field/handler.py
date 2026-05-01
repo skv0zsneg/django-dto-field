@@ -57,4 +57,6 @@ class DtoHandler(Generic[T_DTO]):
                 )
             return DataclassValidator()
 
-        raise DtoHandlerError("DTO Handler Error: no validator for schema '%s'" % schema)
+        raise DtoHandlerError(
+            "DTO Handler Error: no validator for schema '%s'" % schema
+        )
