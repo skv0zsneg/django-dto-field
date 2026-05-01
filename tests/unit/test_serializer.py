@@ -51,9 +51,7 @@ class TestDictDtoSerializer:
 
 class TestBaseDtoSerializerConstraints:
     def test_abstract_class_cannot_be_instantiated(self) -> None:
-        with pytest.raises(
-            DtoFeatureError, match="Dto Feature Error: missing definition of `dto_code`"
-        ):
+        with pytest.raises(TypeError):
             BaseDtoSerializer()
 
     def test_missing_dto_code_raises_on_init(self) -> None:
