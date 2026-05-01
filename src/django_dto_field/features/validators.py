@@ -1,8 +1,12 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, TYPE_CHECKING
 
 from django_dto_field.exceptions import ValidatorError
 from django_dto_field.features.base import BaseDtoFeature, DtoCodeEnum
+
+if TYPE_CHECKING:
+    from _typeshed import DataclassInstance
+
 
 T_DTO = TypeVar("T_DTO")
 
@@ -20,7 +24,7 @@ class DataclassValidator(BaseDtoValidator):
 
     dto_code = DtoCodeEnum.DATACLASS
 
-    def validate(self, value_dto: T_DTO, schema: type[T_DTO]) -> None:
+    def validate(self, value_dto: DataclassInstance, schema: type[DataclassInstance]) -> None:
         if not isinstance(value_dto, schema):
             raise ValidatorError(
                 "Validation Error: given dataclass DTO is not match given schema %s"
