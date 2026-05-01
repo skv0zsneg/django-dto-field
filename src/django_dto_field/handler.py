@@ -22,7 +22,11 @@ class DtoHandler(Generic[T_DTO]):
         serializer = self._get_serializer_from_python(value_dto)
         return serializer.serialize(value_dto)
 
-    def deserialize(self, raw_dto: bytes, schema: type[T_DTO] | None = None) -> T_DTO | None:
+    def deserialize(
+        self,
+        raw_dto: bytes,
+        schema: type[T_DTO] | None = None,
+    ) -> T_DTO | None:
         serializer = self._get_serializer_from_raw(raw_dto, schema)
         return serializer.deserialize(raw_dto)
 
@@ -40,7 +44,9 @@ class DtoHandler(Generic[T_DTO]):
         if dataclasses.is_dataclass(value_dto):
             return DataclassDtoSerializer()
 
-        raise DtoHandlerError("DtoHandlerError: no serializer for DTO value '%s'" % str(value_dto))
+        raise DtoHandlerError(
+            "DtoHandlerError: no serializer for DTO value '%s'" % str(value_dto)
+        )
 
     def _get_serializer_from_raw(
         self,
@@ -55,7 +61,9 @@ class DtoHandler(Generic[T_DTO]):
         try:
             return code_to_serializer[code](schema)
         except KeyError:
-            raise DtoHandlerError("DTO Handler Error: no serializer for DTO value %r" % raw_dto)
+            raise DtoHandlerError(
+                "DTO Handler Error: no serializer for DTO value %r" % raw_dto
+            )
 
     def _get_validator_from_python(self, schema: type[T_DTO]) -> BaseDtoValidator:
         if dataclasses.is_dataclass(schema):
@@ -65,4 +73,6 @@ class DtoHandler(Generic[T_DTO]):
                 )
             return DataclassValidator()
 
-        raise DtoHandlerError("DTO Handler Error: no validator for schema '%s'" % schema)
+        raise DtoHandlerError(
+            "DTO Handler Error: no validator for schema '%s'" % schema
+        )

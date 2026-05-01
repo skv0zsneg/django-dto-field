@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar, TYPE_CHECKING
 from dataclasses import asdict, is_dataclass
 from inspect import isclass
+from typing import TYPE_CHECKING, Generic, TypeVar
 
 import msgspec
 
@@ -71,7 +71,9 @@ class DataclassDtoSerializer(BaseDtoSerializer):
 
     def deserialize_payload(self, raw_dto: bytes) -> DataclassInstance:
         if self._schema is None:
-            raise SerializerError("Serializer Error: for `dataclass` DTO schema must be provided")
+            raise SerializerError(
+                "Serializer Error: for `dataclass` DTO schema must be provided"
+            )
         if not is_dataclass(self._schema) and not isclass(self._schema):
             raise SerializerError(
                 "Serializer Error: given wrong schema for `dataclass` DTO. "
