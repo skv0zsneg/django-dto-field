@@ -9,7 +9,7 @@ from django_dto_field.exceptions import SerializerError
 from django_dto_field.features.base import BaseDtoFeature, DtoCodeEnum
 from django_dto_field.parser import RawDtoParser
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from _typeshed import DataclassInstance
 
 T_DTO = TypeVar("T_DTO")

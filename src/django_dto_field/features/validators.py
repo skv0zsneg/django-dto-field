@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Generic, TypeVar
 from django_dto_field.exceptions import ValidatorError
 from django_dto_field.features.base import BaseDtoFeature, DtoCodeEnum
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     from _typeshed import DataclassInstance
 
 
