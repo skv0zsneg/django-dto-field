@@ -52,7 +52,7 @@ class DTOField(BinaryField, Generic[T_DTO]):
     ) -> T_DTO | None:
         if value is None:
             return value
-        return self._dto_handler.deserialize(value)
+        return self._dto_handler.deserialize(value, self._schema)
 
     def get_db_prep_value(
         self,
