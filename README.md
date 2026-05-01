@@ -10,7 +10,7 @@
 
 _Storing DTO data in easy-to-use and production-ready Django Model Field with fast [de]serialization._
 
-A custom Django Model Field that can serialize and deserialize for different types of DTO (Data-Transfer-Object). `DtoField` detect DTO type and serialize the most efficiently. Also it has own binary container to maintain data integrity and economical storage. 
+A custom Django Model Field that can serialize and deserialize for different types of DTO (Data-Transfer-Object). `DTOField` detect DTO type and serialize the most efficiently. Also it has own binary container to maintain data integrity and economical storage. 
 
 
 ## ✨ Features
@@ -37,11 +37,11 @@ Set DTO field to your model:
 
 ```python
 >>> from django.db.models import CharField
->>> from django_dto_field import DtoField
+>>> from django_dto_field import DTOField
 
 >>> class Country(Model):
 ...    name = CharField()
-...    city = DtoField()
+...    city = DTOField()
 ```
 
 And than use it:
