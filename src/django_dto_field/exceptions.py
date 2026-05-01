@@ -20,3 +20,7 @@ class RegistryError(BaseDjangoDtoFieldException):
 
 class DtoFeatureError(BaseDjangoDtoFieldException):
     """Error with DTO feature."""
+
+
+class ValidatorError(BaseDjangoDtoFieldException):
+    """Error with DTO validator."""
