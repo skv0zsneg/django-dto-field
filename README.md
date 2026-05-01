@@ -72,18 +72,18 @@ Set `dataclass` schema:
 ...     districts: list[str]
 ```
 
-Set DTO field to your model and add your schema:
+Set `DTOField` to your model and add your schema. It needs for validate and restore object:
 
 ```python
 >>> from django.db.models import CharField
->>> from django_dto_field import DtoField
+>>> from django_dto_field import DTOField
 
 >>> class Country(Model):
 ...    name = CharField()
-...    city = DtoField()
+...    city = DTOField(schema=City)
 ```
 
-And than use it:
+Use it as usual:
 
 ```python
 >>> city = City(name="Capitol", districts=[f"d{i}" for i in range(1, 14)])
@@ -94,12 +94,12 @@ And than use it:
 >>> assert from_db_country.city == city
 ```
 
-_Optional_: add `schema` argument for DTO data validation:
+Validation error will raise if wrong schema will appear:
 
 ```python
 >>> class Country(Model):
 ...    name = CharField()
-...    city = DtoField(schema=City)
+...    city = DTOField(schema=City)
 
 >>> @dataclass
 ... class WrongCity:
