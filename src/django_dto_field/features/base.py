@@ -1,6 +1,6 @@
 from abc import ABC
 from enum import Enum
-from typing import ClassVar, Self
+from typing import ClassVar
 
 from django_dto_field.exceptions import DtoFeatureError
 
