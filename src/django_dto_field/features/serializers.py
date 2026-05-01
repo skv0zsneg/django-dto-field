@@ -19,6 +19,7 @@ class BaseDtoSerializer(BaseDtoFeature, Generic[T_DTO], ABC):
     """Interface for DTO serializer adapters."""
 
     def __init__(self, schema: type[T_DTO] | None = None) -> None:
+        super().__init__()
         self._parser = RawDtoParser()
         self._schema = schema
 

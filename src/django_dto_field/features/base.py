@@ -17,9 +17,9 @@ class BaseDtoFeature(ABC):
 
     dto_code: ClassVar[bytes | None] = None
 
-    def __new__(cls) -> Self:
-        cls._get_dto_code()  # <-- calling just to be sure that dto_code is set.
-        return super().__new__(cls)
+    def __init__(self, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self._get_dto_code()  # <-- calling just to be sure that dto_code is set.
 
     @classmethod
     def _get_dto_code(cls) -> bytes:
