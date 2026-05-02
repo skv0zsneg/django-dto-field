@@ -24,12 +24,11 @@ wemake-python-styleguide = "^1.6.1"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "django_app.settings"
-pythonpath = ["src", "tests/django_app"]
+pythonpath = ["src", "tests/e2e"]
 python_files = ["tests.py", "test_*.py"]
 addopts = [
     # pytest-cov
     "--cov=src/",
-    "--cov=tests/",
     "--cov-report=html",
     "--cov-fail-under=100",
     # pytest-xdist

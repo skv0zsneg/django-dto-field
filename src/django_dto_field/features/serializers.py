@@ -1,5 +1,7 @@
 from abc import ABC, abstractmethod
-from typing import Generic, TypeVar
+from dataclasses import asdict, is_dataclass
+from inspect import isclass
+from typing import TYPE_CHECKING, Generic, TypeVar
 
 import msgspec
 
@@ -7,15 +9,19 @@ from django_dto_field.exceptions import SerializerError
 from django_dto_field.features.base import BaseDtoFeature, DtoCodeEnum
 from django_dto_field.parser import RawDtoParser
 
+if TYPE_CHECKING:  # pragma: no cover
+    from _typeshed import DataclassInstance
+
 T_DTO = TypeVar("T_DTO")
 
 
 class BaseDtoSerializer(BaseDtoFeature, Generic[T_DTO], ABC):
     """Interface for DTO serializer adapters."""
 
-    def __init__(self) -> None:
-        self._get_dto_code()  # <-- calling just to be sure that dto_code is set.
+    def __init__(self, schema: type[T_DTO] | None = None) -> None:
+        super().__init__()
         self._parser = RawDtoParser()
+        self._schema = schema
 
     @abstractmethod
     def serialize_payload(self, value_dto: T_DTO) -> bytes:
@@ -54,3 +60,26 @@ class DictDtoSerializer(BaseDtoSerializer):
 
     def deserialize_payload(self, raw_dto: bytes) -> dict:
         return msgspec.json.decode(raw_dto)
+
+
+class DataclassDtoSerializer(BaseDtoSerializer):
+    """Adapter serializer for `dataclasses.dataclass` DTO."""
+
+    dto_code = DtoCodeEnum.DATACLASS
+
+    def serialize_payload(self, value_dto: "DataclassInstance") -> bytes:
+        return msgspec.json.encode(asdict(value_dto))
+
+    def deserialize_payload(self, raw_dto: bytes) -> "DataclassInstance":
+        if self._schema is None:
+            raise SerializerError(
+                "Serializer Error: for `dataclass` DTO schema must be provided"
+            )
+        if not is_dataclass(self._schema) and not isclass(self._schema):
+            raise SerializerError(
+                "Serializer Error: given wrong schema for `dataclass` DTO. "
+                "Expected dataclass class but given '%s'" % self._schema
+            )
+
+        dict_inner = msgspec.json.decode(raw_dto)
+        return self._schema(**dict_inner)

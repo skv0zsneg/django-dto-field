@@ -17,8 +17,8 @@ A custom Django Model Field that can serialize and deserialize for different typ
 
 - [X] All DB support (if DB support BinaryFiled)
 - [ ] Zip field for size saving (optional)
-- [X] Supports pure `dict` as DTO
-- [ ] Supports `dataclass` as DTO
+- [X] Supports pure [`dict`](#dict) as DTO
+- [X] Supports [`dataclass`](#dataclass) as DTO
 - [ ] Supports `pydantic` as DTO
 - [ ] Supports `marshmallow` as DTO
 - [ ] Supports `attrs` as DTO
@@ -32,6 +32,10 @@ $ pip install django-dto-field
 ```
 
 ## 🚀 Quick start
+
+Choose your DTO: [`dict`](#dict), [`dataclass`](#dataclass)
+
+### `dict`
 
 Set DTO field to your model:
 
@@ -55,6 +59,59 @@ And than use it:
 >>> assert from_db_country.city == city
 ```
 
+### `dataclass`
+
+Set `dataclass` schema:
+
+```python
+>>> from dataclasses import dataclass
+
+>>> @dataclass
+... class City:
+...     name: str
+...     districts: list[str]
+```
+
+Set `DTOField` to your model and add your schema. It needs for validate and restore object:
+
+```python
+>>> from django.db.models import CharField
+>>> from django_dto_field import DTOField
+
+>>> class Country(Model):
+...    name = CharField()
+...    city = DTOField(schema=City)
+```
+
+Use it as usual:
+
+```python
+>>> city = City(name="Capitol", districts=[f"d{i}" for i in range(1, 14)])
+>>> created_country = Country.objects.create(name="Panem", city=city)
+
+>>> from_db_country = Country.objects.get(pk=created_country.pk)
+>>> assert isinstance(from_db_country.city, City)
+>>> assert from_db_country.city == city
+```
+
+Validation error will raise if wrong schema will appear:
+
+```python
+>>> class Country(Model):
+...    name = CharField()
+...    city = DTOField(schema=City)
+
+>>> @dataclass
+... class WrongCity:
+...     addresses: list[str]
+...
+
+>>> wrong_city = WrongCity(addresses=[])
+>>> from_db_country.city = wrong_city
+Traceback (most recent call last):
+    ...
+ValidationError: given value 'WrongCity(addresses=[])' did not match schema 'City'
+```
 
 ## 🤗 Author
 

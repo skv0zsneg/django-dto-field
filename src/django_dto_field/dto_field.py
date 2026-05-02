@@ -1,5 +1,7 @@
-from typing import Generic, Optional, TypeVar
+from collections.abc import Sequence
+from typing import Any, Generic, TypeVar
 
+from django.core.exceptions import ValidationError
 from django.db.models.fields import BinaryField
 
 from django_dto_field.handler import DtoHandler
@@ -12,26 +14,52 @@ class DTOField(BinaryField, Generic[T_DTO]):
 
     empty_strings_allowed = False
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(
+        self,
+        *args,
+        schema: type[T_DTO] | None = None,
+        **kwargs,
+    ) -> None:
         self._dto_handler: DtoHandler = DtoHandler()
+        self._schema = schema
         super().__init__(*args, **kwargs)
+
+    def deconstruct(self) -> tuple[str, str, Sequence[Any], dict[str, Any]]:
+        name, path, args, kwargs = super().deconstruct()
+        if self._schema is not None:
+            kwargs["schema"] = self._schema
+        return name, path, args, kwargs
+
+    def to_python(
+        self,
+        value: T_DTO | None,  # noqa: WPS110
+    ) -> T_DTO | None:
+        if value is None:
+            return value
+        if self._schema:
+            if not self._dto_handler.is_valid(value, self._schema):
+                raise ValidationError(
+                    "given value '%s' is not valid for schema '%s'"
+                    % (value, self._schema)
+                )
+        return value
 
     def from_db_value(
         self,
-        value: Optional[bytes],  # noqa: WPS110
+        value: bytes | None,  # noqa: WPS110
         *args,
         **kwargs,
-    ) -> Optional[T_DTO]:
+    ) -> T_DTO | None:
         if value is None:
             return value
-        return self._dto_handler.deserialize(value)
+        return self._dto_handler.deserialize(value, self._schema)
 
     def get_db_prep_value(
         self,
-        value: Optional[T_DTO],  # noqa: WPS110
+        value: T_DTO | None,  # noqa: WPS110
         *args,
         **kwargs,
-    ) -> Optional[bytes]:
+    ) -> bytes | None:
         if value is None:
             return value
         return self._dto_handler.serialize(value)

@@ -7,8 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## WIP
 
+### Added
+
+- Add `dataclass` support, #29
+
 ### Changed
 
+- Move `dto_code` checking to `BaseDtoFeature` class.
 - Breaking: change `DtoField` naming to `DTOField` to be similar to `JSONField` naming.
 
 ### Removed
