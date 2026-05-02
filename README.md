@@ -37,7 +37,9 @@ Choose your DTO: [`dict`](#dict), [`dataclass`](#dataclass)
 
 ### `dict`
 
-Set DTO field to your model:
+We support pure `dict` for using it like DTO object. The main different between `dict` and other DTO types is that `dict` has no validation and `DTOField` uses it by default.
+
+1. Set `DTOField` to your model:
 
 ```python
 >>> from django.db.models import CharField
@@ -48,7 +50,7 @@ Set DTO field to your model:
 ...    city = DTOField()
 ```
 
-And than use it:
+2. Use it:
 
 ```python
 >>> city = {"name": "Capitol", "districts": [f"d{i}" for i in range(1, 14)]}
@@ -61,7 +63,9 @@ And than use it:
 
 ### `dataclass`
 
-Set `dataclass` schema:
+We support `dataclass` object as DTO. You can use it simply without thinking of serialization, deserialization and validation. `DTOField` will do it for you.
+
+1. Set `dataclass` schema:
 
 ```python
 >>> from dataclasses import dataclass
@@ -72,7 +76,7 @@ Set `dataclass` schema:
 ...     districts: list[str]
 ```
 
-Set `DTOField` to your model and add your schema. It needs for validate and restore object:
+2. Set `DTOField` to your model and add schema.
 
 ```python
 >>> from django.db.models import CharField
@@ -83,7 +87,7 @@ Set `DTOField` to your model and add your schema. It needs for validate and rest
 ...    city = DTOField(schema=City)
 ```
 
-Use it as usual:
+3. Use it:
 
 ```python
 >>> city = City(name="Capitol", districts=[f"d{i}" for i in range(1, 14)])
@@ -94,13 +98,9 @@ Use it as usual:
 >>> assert from_db_country.city == city
 ```
 
-Validation error will raise if wrong schema will appear:
+Validation error will raise if wrong schema will appear ([what if schema change?](#what-if-schema-will-change)):
 
 ```python
->>> class Country(Model):
-...    name = CharField()
-...    city = DTOField(schema=City)
-
 >>> @dataclass
 ... class WrongCity:
 ...     addresses: list[str]
@@ -112,6 +112,18 @@ Traceback (most recent call last):
     ...
 ValidationError: given value 'WrongCity(addresses=[])' did not match schema 'City'
 ```
+
+
+### What if schema will change?
+
+The goal of `DTOField` is to give you an easy tool for working with different DTO's objects but not how to manipulate them. This is why we will never give migration features.
+
+But it's not a problem! Often you can make migration with 3 steps:
+
+1. Define the new `DTOField` with your new schema.
+2. Write new custom Django migration to get, change and save updated data to new field.
+3. Delete old field.  
+
 
 ## 🤗 Author
 
