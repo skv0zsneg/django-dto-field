@@ -1,6 +1,6 @@
 [project]
 name = "django-dto-field"
-version = "0.1.0-alpha2"
+version = "0.1.0-alpha3"
 license = "MIT" 
 description = "Storing DTO data in easy-to-use and production-ready Django Model Field with fast [de]serialization."
 authors = [{ name = "skv0zsneg", email = "<klimentlamonov@yandex.ru>" }]
@@ -24,12 +24,11 @@ wemake-python-styleguide = "^1.6.1"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "django_app.settings"
-pythonpath = ["src", "tests/django_app"]
+pythonpath = ["src", "tests/e2e"]
 python_files = ["tests.py", "test_*.py"]
 addopts = [
     # pytest-cov
     "--cov=src/",
-    "--cov=tests/",
     "--cov-report=html",
     "--cov-fail-under=100",
     # pytest-xdist
