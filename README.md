@@ -39,6 +39,10 @@ Choose your DTO: [`dict`](#dict), [`dataclass`](#dataclass)
 
 We support pure `dict` for using it like DTO object. The main different between `dict` and other DTO types is that `dict` has no validation and `DTOField` uses it by default.
 
+Also we have some [benchmarks](/tests/e2e/dict_field/management/commands/benchmark.py) with default `JSONField`. And they shows that `DTOField` is 2.4x faster on write operation (thanks to amazing [msgspec](https://github.com/jcrist/msgspec) lib). 
+
+![JSONField vs DTOField write](/docs/media/JSONField%20и%20DTOField.png)
+
 1. Set `DTOField` to your model:
 
 ```python
