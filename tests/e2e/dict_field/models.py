@@ -3,6 +3,11 @@ from django.db import models
 from django_dto_field.dto_field import DTOField
 
 
+class BenchmarkModel(models.Model):
+    json_field = models.JSONField(null=True)
+    dto_field = DTOField(null=True)
+
+
 @dataclasses.dataclass
 class UserDTO:
     id: int

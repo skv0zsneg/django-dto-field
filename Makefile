@@ -6,7 +6,7 @@ unit:
 
 .PHONY: benchmark
 benchmark:
-	poetry run python3 benchmarks/jsonfield_benchmark.py
+	poetry run python3 tests/e2e/manage.py benchmark
 
 .PHONY: typing
 typing:
