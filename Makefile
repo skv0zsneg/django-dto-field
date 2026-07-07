@@ -2,26 +2,26 @@ SHELL:=/usr/bin/env bash
 
 .PHONY: unit
 unit:
-	poetry run pytest
+	uv run pytest
 
 .PHONY: benchmark
 benchmark:
-	poetry run python3 tests/e2e/manage.py benchmark
+	uv run python3 tests/e2e/manage.py benchmark
 
 .PHONY: typing
 typing:
-	poetry run mypy src
+	uv run mypy src
 
 .PHONY: lint
 lint:
-	poetry run ruff check --select I src
-	poetry run ruff format --check src
-	poetry run flake8 src --select=WPS
+	uv run ruff check --select I src
+	uv run ruff format --check src
+	uv run flake8 src --select=WPS
 
 .PHONY: format
 format:
-	poetry run ruff check --select I --fix src
-	poetry run ruff format src
+	uv run ruff check --select I --fix src
+	uv run ruff format src
 
 .PHONY: test
 test: unit
