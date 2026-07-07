@@ -10,30 +10,30 @@ permissions:
   contents: read
 
 jobs:
-  build:
+  lint-and-type:
     runs-on: ubuntu-latest
+    
     steps:
-
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - name: Set up Python 3.12
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install poetry
-        uses: snok/install-poetry@v1
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
         with:
-          version: 2.3.0 
-          virtualenvs-create: true
-          virtualenvs-in-project: true 
+          enable-cache: true
+          cache-dependency-glob: "uv.lock"
 
       - name: Install dependencies
-        run: |
-          poetry run pip install -U pip
-          poetry install
+        run: uv sync --all-extras --dev
 
-      - name: Run type and lint checks
-        run: make typing lint
+      - name: Run type checks
+        run: make typing
+
+      - name: Run linters
+        run: make lint
