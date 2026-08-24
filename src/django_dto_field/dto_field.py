@@ -53,6 +53,12 @@ class DTOField(BinaryField, Generic[T_DTO]):
             return value
         return self._dto_handler.deserialize(value, self._schema)
 
+    def validate(self, value: T_DTO | None, model_instance: Any) -> None:  # noqa: WPS110
+        if value is None and not self.null:
+            raise ValidationError(self.error_messages["null"], code="null")
+        if not self.blank and value in self.empty_values:
+            raise ValidationError(self.error_messages["blank"], code="blank")
+
     def get_db_prep_value(
         self,
         value: T_DTO | None,  # noqa: WPS110
@@ -61,4 +67,5 @@ class DTOField(BinaryField, Generic[T_DTO]):
     ) -> bytes | None:
         if value is None:
             return value
+        self.to_python(value)
         return self._dto_handler.serialize(value)
