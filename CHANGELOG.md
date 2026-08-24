@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- End-to-end coverage for `DTOField` ORM read and write paths, defaults, nullable values, and malformed DTO data.
+
+### Changed
+
+- Refactor DTO serialization around a registry of DTO implementations for dictionaries and dataclasses.
+- Validate schema-bound `DTOField` values before serializing them for database writes.
+
+### Fixed
+
+- Respect Django `null` and `blank` validation rules in `DTOField`.
+
 ## [0.1.1-beta1] - 2026-07-08
 
 ### Added
