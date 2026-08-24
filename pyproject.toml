@@ -45,6 +45,7 @@ build-backend = "uv_build"
 DJANGO_SETTINGS_MODULE = "django_app.settings"
 pythonpath = ["src", "tests/e2e"]
 python_files = ["tests.py", "test_*.py"]
+testpaths = ["tests"]
 addopts = [
     # pytest-cov
     "--cov=src/",
@@ -53,3 +54,6 @@ addopts = [
     # pytest-xdist
     "-n=auto",
 ]
+
+[tool.ruff.lint]
+external = ["WPS"]

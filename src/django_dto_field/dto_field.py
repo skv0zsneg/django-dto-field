@@ -1,12 +1,11 @@
 from collections.abc import Sequence
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic
 
 from django.core.exceptions import ValidationError
 from django.db.models.fields import BinaryField
 
-from django_dto_field.handler import DtoHandler
-
-T_DTO = TypeVar("T_DTO")
+from django_dto_field.dto.base import T_DTO
+from django_dto_field.handler import HandlerDTO
 
 
 class DTOField(BinaryField, Generic[T_DTO]):
@@ -20,7 +19,7 @@ class DTOField(BinaryField, Generic[T_DTO]):
         schema: type[T_DTO] | None = None,
         **kwargs,
     ) -> None:
-        self._dto_handler: DtoHandler = DtoHandler()
+        self._dto_handler: HandlerDTO = HandlerDTO()
         self._schema = schema
         super().__init__(*args, **kwargs)
 

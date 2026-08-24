@@ -1,18 +1,15 @@
-import dataclasses
+from dataclasses import dataclass
+
 from django.db import models
+
 from django_dto_field.dto_field import DTOField
 
 
-class BenchmarkModel(models.Model):
-    json_field = models.JSONField(null=True)
-    dto_field = DTOField(null=True)
-
-
-@dataclasses.dataclass
+@dataclass
 class UserDTO:
-    id: int
+    identifier: int
     email: str
-    is_active: bool = True
+    active: bool = True
 
 
 class DictModel(models.Model):
@@ -23,5 +20,5 @@ class DataclassModel(models.Model):
     payload = DTOField(schema=UserDTO)
 
 
-class NullableSchemaModel(models.Model):
+class NullableModel(models.Model):
     payload = DTOField(schema=UserDTO, null=True, blank=True)

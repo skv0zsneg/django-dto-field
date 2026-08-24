@@ -1,26 +1,37 @@
-class BaseDjangoDtoFieldException(Exception):
+from typing import ClassVar
+
+
+class BaseDjangoDTOFieldError(Exception):
     """Base exception for django-dto-field."""
 
+    default_message: ClassVar[str] = "An unexpected error occurred."
 
-class DtoHandlerError(BaseDjangoDtoFieldException):
+    def __init__(self, message: str | None = None) -> None:
+        self.message = message or self.default_message
+        super().__init__(self.message)
+
+
+class DtoHandlerError(BaseDjangoDTOFieldError):
     """Error in DTO handler."""
 
 
-class SerializerError(BaseDjangoDtoFieldException):
+class SerializerError(BaseDjangoDTOFieldError):
     """Serializer DTO error."""
 
 
-class CorruptedDtoError(BaseDjangoDtoFieldException):
-    """Corrupted error form DTO raw object."""
+class BinaryDTOParserError(BaseDjangoDTOFieldError):
+    """Base error for binary DTO parser."""
+
+    default_message = "Error on binary DTO parser"
 
 
-class RegistryError(BaseDjangoDtoFieldException):
+class RegistryError(BaseDjangoDTOFieldError):
     """Error in global registry."""
 
 
-class DtoFeatureError(BaseDjangoDtoFieldException):
+class DtoFeatureError(BaseDjangoDTOFieldError):
     """Error with DTO feature."""
 
 
-class ValidatorError(BaseDjangoDtoFieldException):
+class ValidatorError(BaseDjangoDTOFieldError):
     """Error with DTO validator."""
