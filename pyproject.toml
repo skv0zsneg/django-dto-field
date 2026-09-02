@@ -15,7 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "django>=4.2.0",
+    "django>=4.2.0,<7.0.0",
     "msgspec (>=0.20.0,<0.21.0)",
 ]
 
