@@ -16,7 +16,7 @@ classifiers = [
 ]
 dependencies = [
     "django>=4.2.0",
-    "msgspec (>=0.20.0,<0.21.0)",
+    "msgspec>=0.20.0,<0.22.0",
 ]
 
 [dependency-groups]
