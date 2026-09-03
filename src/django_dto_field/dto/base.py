@@ -81,7 +81,7 @@ class BaseDTO(ABC, Generic[T_DTO]):  # noqa: WPS214
     @classmethod
     def from_type(cls, dto_type: type[T_DTO]) -> type["BaseDTO"]:
         """Get DTO object from it type."""
-        dto_object = cls._dto_regisrty.get_from_type(dto_type)
+        dto_object = cls._dto_registry.get_from_type(dto_type)
         if dto_object is None:
             raise DTOError(f"No DTO found for type: {dto_type}")
         return dto_object
@@ -89,7 +89,7 @@ class BaseDTO(ABC, Generic[T_DTO]):  # noqa: WPS214
     @classmethod
     def from_code(cls, dto_code: int) -> type["BaseDTO"]:
         """Get DTO object from it code."""
-        dto_object = cls._dto_regisrty.get_from_code(dto_code)
+        dto_object = cls._dto_registry.get_from_code(dto_code)
         if dto_object is None:
             raise DTOError(f"No DTO found for code: {dto_code}")
         return dto_object
