@@ -2,7 +2,7 @@ from django_dto_field.exceptions import BaseDjangoDTOFieldError
 
 
 class DTOError(BaseDjangoDTOFieldError):
-    """Error on `dto_code` attrubute."""
+    """Error on `dto_code` attribute."""
 
     default_message = "Error on DTO object."
 
