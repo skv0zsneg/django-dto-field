@@ -35,12 +35,10 @@ class DTOField(BinaryField, Generic[T_DTO]):
     ) -> T_DTO | None:
         if value is None:
             return value
-        if self._schema:
-            if not self._dto_handler.is_valid(value, self._schema):
-                raise ValidationError(
-                    "given value '%s' is not valid for schema '%s'"
-                    % (value, self._schema)
-                )
+        if self._schema and not self._dto_handler.is_valid(value, self._schema):
+            raise ValidationError(
+                "given value '%s' is not valid for schema '%s'" % (value, self._schema)
+            )
         return value
 
     def from_db_value(

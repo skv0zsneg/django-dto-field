@@ -13,10 +13,16 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
+    "Typing :: Typed",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "django>=4.2.0",
-    "msgspec>=0.20.0,<0.22.0",
+    "django>=4.2.0,<7.0.0",
+    "msgspec (>=0.20.0,<0.21.0)",
 ]
 
 [dependency-groups]

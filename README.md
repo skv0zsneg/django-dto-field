@@ -2,7 +2,6 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/django-dto-field.svg)](https://pypi.org/project/django-dto-field/)
 [![PyPI license](https://img.shields.io/pypi/l/django-dto-field.svg)](https://pypi.python.org/pypi/django-dto-field/)
-[![Python Version](https://img.shields.io/pypi/pyversions/django-dto-field.svg)](https://pypi.org/project/django-dto-field/)
 
 [![wemake-python-styleguide](https://img.shields.io/badge/style-wemake-000000.svg)](https://github.com/wemake-services/wemake-python-styleguide)
 [![test](https://github.com/skv0zsneg/django-dto-field/actions/workflows/test.yml/badge.svg?event=push)](https://github.com/skv0zsneg/django-dto-field/actions/workflows/test.yml)
@@ -11,6 +10,16 @@
 _Storing DTO data in easy-to-use and production-ready Django Model Field with fast [de]serialization._
 
 A custom Django Model Field that can serialize and deserialize for different types of DTO (Data-Transfer-Object). `DTOField` detect DTO type and serialize the most efficiently. Also it has own binary container to maintain data integrity and economical storage. 
+
+**Supported versions.**
+
+|             | Django 4.2 | Django 5.2 | Django 6.0 |
+|-------------|------------|------------|------------|
+| Python 3.10 | ✅         | ✅          | ❌         | 
+| Python 3.11 | ✅         | ✅          | ❌         |
+| Python 3.12 | ✅         | ✅          | ✅         |
+| Python 3.13 | ❌         | ✅          | ✅         |
+| Python 3.14 | ❌         | ✅          | ✅         |
 
 
 ## ✨ Features
@@ -129,6 +138,6 @@ But it's not a problem! Often you can make migration with 3 steps:
 3. Delete old field.  
 
 
-## 🤗 Author
+## 🤗 Contributing 
 
-Made with love by [@skv0zsneg](https://github.com/skv0zsneg)
+You can find everything about contributing in [here](./CONTRIBUTING.md).

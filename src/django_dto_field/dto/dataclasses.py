@@ -40,9 +40,11 @@ class DataclassDTO(BaseDTO["DataclassInstance"]):
     def validate(
         self,
         value_dto: "DataclassInstance",
-        schema: type["DataclassInstance"],
+        schema: type["DataclassInstance"] | None = None,
     ) -> None:
-        if not isinstance(value_dto, schema):
+        if schema is None:
+            raise DTOValidationError("For `dataclass` DTO schema must be provided")
+        if schema is not None and not isinstance(value_dto, schema):
             raise DTOValidationError(
                 f"Given dataclass DTO is not match given schema {schema}"
             )

@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import ClassVar, Generic, TypeVar, final
 
+from typing_extensions import Self
+
 from django_dto_field.dto.exceptions import DTOError
 
 T_DTO = TypeVar("T_DTO")
@@ -9,6 +11,13 @@ T_DTO = TypeVar("T_DTO")
 @final
 class DTORegistry(Generic[T_DTO]):
     """Registry for DTO objects."""
+
+    _instance: Self | None = None
+
+    def __new__(cls, *args, **kwargs) -> Self:
+        if cls._instance is None:
+            cls._instance = super().__new__(cls, *args, **kwargs)
+        return cls._instance
 
     def __init__(self) -> None:
         self._code_to_instances: dict[int, type["BaseDTO"]] = {}
@@ -50,7 +59,7 @@ class BaseDTO(ABC, Generic[T_DTO]):  # noqa: WPS214
     dto_code: ClassVar[int]
     dto_type: ClassVar[type]
 
-    _dto_regisrty: DTORegistry = DTORegistry()
+    _dto_registry: DTORegistry = DTORegistry()
 
     def __init_subclass__(cls, *args, **kwargs) -> None:
         super().__init_subclass__(*args, **kwargs)
@@ -58,7 +67,7 @@ class BaseDTO(ABC, Generic[T_DTO]):  # noqa: WPS214
         cls._validate_dto_code()
         cls._validate_dto_type()
 
-        cls._dto_regisrty.register(cls)
+        cls._dto_registry.register(cls)
 
     def __init__(self, schema: type[T_DTO] | None = None) -> None:
         self._schema = schema
@@ -74,14 +83,14 @@ class BaseDTO(ABC, Generic[T_DTO]):  # noqa: WPS214
         raise NotImplementedError
 
     @abstractmethod
-    def validate(self, value_dto: T_DTO, schema: type[T_DTO]) -> None:
+    def validate(self, value_dto: T_DTO, schema: type[T_DTO] | None = None) -> None:
         """Validate DTO value for given DTO schema."""
         raise NotImplementedError
 
     @classmethod
     def from_type(cls, dto_type: type[T_DTO]) -> type["BaseDTO"]:
         """Get DTO object from it type."""
-        dto_object = cls._dto_regisrty.get_from_type(dto_type)
+        dto_object = cls._dto_registry.get_from_type(dto_type)
         if dto_object is None:
             raise DTOError(f"No DTO found for type: {dto_type}")
         return dto_object
@@ -89,7 +98,7 @@ class BaseDTO(ABC, Generic[T_DTO]):  # noqa: WPS214
     @classmethod
     def from_code(cls, dto_code: int) -> type["BaseDTO"]:
         """Get DTO object from it code."""
-        dto_object = cls._dto_regisrty.get_from_code(dto_code)
+        dto_object = cls._dto_registry.get_from_code(dto_code)
         if dto_object is None:
             raise DTOError(f"No DTO found for code: {dto_code}")
         return dto_object

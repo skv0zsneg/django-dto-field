@@ -10,11 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - End-to-end coverage for `DTOField` ORM read and write paths, defaults, nullable values, and malformed DTO data.
+- Add dependabot to CI.
+- Matrix Python and Django supported versions for CI tests.
 
 ### Changed
 
 - Refactor DTO serialization around a registry of DTO implementations for dictionaries and dataclasses.
 - Validate schema-bound `DTOField` values before serializing them for database writes.
+- Add contributing link to `README.md`.
+- Add supported Python and Django versions to `README.md`.
 
 ### Fixed
 
