@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod
 from typing import ClassVar, Generic, TypeVar, final
 
+from typing_extensions import Self
+
 from django_dto_field.dto.exceptions import DTOError
 
 T_DTO = TypeVar("T_DTO")
@@ -9,6 +11,13 @@ T_DTO = TypeVar("T_DTO")
 @final
 class DTORegistry(Generic[T_DTO]):
     """Registry for DTO objects."""
+
+    _instance: Self | None = None
+
+    def __new__(cls, *args, **kwargs) -> Self:
+        if cls._instance is None:
+            cls._instance = super().__new__(cls, *args, **kwargs)
+        return cls._instance
 
     def __init__(self) -> None:
         self._code_to_instances: dict[int, type["BaseDTO"]] = {}
@@ -74,7 +83,7 @@ class BaseDTO(ABC, Generic[T_DTO]):  # noqa: WPS214
         raise NotImplementedError
 
     @abstractmethod
-    def validate(self, value_dto: T_DTO, schema: type[T_DTO]) -> None:
+    def validate(self, value_dto: T_DTO, schema: type[T_DTO] | None = None) -> None:
         """Validate DTO value for given DTO schema."""
         raise NotImplementedError
 
