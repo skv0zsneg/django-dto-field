@@ -1,8 +1,9 @@
-from typing import Any, ClassVar, final
+from typing import ClassVar, final
 
 import msgspec
 
 from django_dto_field.dto.base import BaseDTO
+from django_dto_field.dto.exceptions import DTOValidationError
 
 
 @final
@@ -18,6 +19,5 @@ class DictDTO(BaseDTO[dict]):
     def deserialize(self, raw_dto: bytes) -> dict:
         return msgspec.json.decode(raw_dto)
 
-    def validate(self, value_dto: dict, schema: Any) -> None:
-        # There is no builtin validation for dict type.
-        ...
+    def validate(self, value_dto: dict, schema: type[dict] | None = None) -> None:
+        raise DTOValidationError("Validation for `dict` type is not implemented.")
