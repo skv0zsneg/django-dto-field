@@ -50,7 +50,7 @@ class BaseDTO(ABC, Generic[T_DTO]):  # noqa: WPS214
     dto_code: ClassVar[int]
     dto_type: ClassVar[type]
 
-    _dto_regisrty: DTORegistry = DTORegistry()
+    _dto_registry: DTORegistry = DTORegistry()
 
     def __init_subclass__(cls, *args, **kwargs) -> None:
         super().__init_subclass__(*args, **kwargs)
@@ -58,7 +58,7 @@ class BaseDTO(ABC, Generic[T_DTO]):  # noqa: WPS214
         cls._validate_dto_code()
         cls._validate_dto_type()
 
-        cls._dto_regisrty.register(cls)
+        cls._dto_registry.register(cls)
 
     def __init__(self, schema: type[T_DTO] | None = None) -> None:
         self._schema = schema
